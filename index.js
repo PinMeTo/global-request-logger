@@ -85,12 +85,7 @@ function attachLoggersToRequest(protocol, options, callback) {
     _.assign(logInfo.response, _.pick(res, 'statusCode', 'headers', 'trailers', 'httpVersion', 'url', 'method'));
     logInfo.response.duration = Date.now() - logInfo.start;
 
-    var responseData = [];
-    res.on('data', function (data) {
-      logBodyChunk(responseData, data);
-    });
     res.on('end', function () {
-      logInfo.response.body = responseData.join('');
       globalLogSingleton.emit('success', logInfo.request, logInfo.response);
     });
     res.on('error', function (error) {
