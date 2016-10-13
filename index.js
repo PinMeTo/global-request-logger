@@ -109,7 +109,7 @@ GlobalLog.prototype.initialize = function (options) {
   try {
     saveGlobals();
     http.request = attachLoggersToRequest.bind(http, 'http');
-    https.request = attachLoggersToRequest.bind(https, 'https');
+    //https.request = attachLoggersToRequest.bind(https, 'https');
     globalLogSingleton.isEnabled = true;
   } catch (e) {
     resetGlobals();
