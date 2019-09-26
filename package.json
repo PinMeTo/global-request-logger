@@ -1,6 +1,6 @@
 {
   "name": "global-request-logger",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "This module configures the http and https modules to raise logging events for every outgoing request.",
   "keywords": [
     "http",
@@ -12,7 +12,10 @@
   "homepage": "https://github.com/meetearnest/global-request-logger",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/**/*.spec.js --reporter spec"
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "test": "mocha test/**/*.spec.js --reporter spec",
+    "test:watch": "mocha --watch test/**/*.spec.js --reporter spec"
   },
   "engines": [
     "node"
@@ -34,10 +37,13 @@
     "lodash": "~4.17.15"
   },
   "devDependencies": {
-    "mocha": "~1.21.4",
+    "@earnest/eslint-config": "^2.1.1",
     "chai": "~1.9.1",
+    "eslint": "^3.17.1",
+    "eslint-plugin-mocha": "^4.11.0",
     "istanbul": "~0.3.0",
-    "sinon": "~1.10.3",
-    "nock": "~0.45.0"
+    "mocha": "~1.21.4",
+    "nock": "~0.45.0",
+    "sinon": "~1.10.3"
   }
 }

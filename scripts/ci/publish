@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+cd "$(dirname "$0")"
+
+source "./common.sh"
+
+cd "../.."
+
+npm install autopublish
+./node_modules/.bin/autopublish .
