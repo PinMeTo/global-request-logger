@@ -1,11 +1,11 @@
 'use strict';
 
-const  http           = require('http');
-const  https          = require('https');
-const  _              = require('lodash');
-const  events         = require('events');
-const  util           = require('util');
-const  url            = require('url');
+const http = require('http');
+const https = require('https');
+const _ = require('lodash');
+const events = require('events');
+const util = require('util');
+const url = require('url');
 
 let ORIGINALS;
 function saveGlobals() {
@@ -21,7 +21,7 @@ function resetGlobals() {
   globalLogSingleton.isEnabled = false;
 }
 
-let GlobalLog = function () {
+let GlobalLog = function() {
   this.isEnabled = false;
   events.EventEmitter.call(this);
 };
@@ -55,7 +55,7 @@ function attachLoggersToRequest(protocol, options, callback) {
   if (typeof options === 'string') {
     options = url.parse(options);
   }
-  _.assign(logInfo,
+  _.assign(logInfo.request,
     _.pick(
       options,
       'port',
@@ -69,7 +69,7 @@ function attachLoggersToRequest(protocol, options, callback) {
       'query',
       'pathname',
       'href'
-  ));
+    ));
 
   logInfo.request.method = req.method || 'get';
   logInfo.request.headers = req._headers;
@@ -87,12 +87,12 @@ function attachLoggersToRequest(protocol, options, callback) {
     originalEnd.apply(req, arguments);
   };
 
-  req.on('error', function (error) {
+  req.on('error', function(error) {
     logInfo.request.error = error;
     globalLogSingleton.emit('error', logInfo.request, logInfo.response);
   });
 
-  req.on('response', function (res) {
+  req.on('response', function(res) {
     logInfo.request.body = requestData.join('');
     _.assign(logInfo.response,
       _.pick(
@@ -103,13 +103,13 @@ function attachLoggersToRequest(protocol, options, callback) {
         'httpVersion',
         'url',
         'method'
-    ));
+      ));
     logInfo.response.duration = Date.now() - logInfo.start;
 
-    res.on('end', function () {
+    res.on('end', function() {
       globalLogSingleton.emit('success', logInfo.request, logInfo.response);
     });
-    res.on('error', function (error) {
+    res.on('error', function(error) {
       logInfo.response.error = error;
       globalLogSingleton.emit('error', logInfo.request, logInfo.response);
     });
@@ -119,7 +119,7 @@ function attachLoggersToRequest(protocol, options, callback) {
 }
 
 
-GlobalLog.prototype.initialize = function (options) {
+GlobalLog.prototype.initialize = function(options) {
   options = options || {};
   _.defaults(options, {
     maxBodyLength: 1024 * 1000 * 3
@@ -137,6 +137,6 @@ GlobalLog.prototype.initialize = function (options) {
   }
 };
 
-GlobalLog.prototype.end = function () {
+GlobalLog.prototype.end = function() {
   resetGlobals();
 };
