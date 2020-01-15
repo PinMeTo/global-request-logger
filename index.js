@@ -11,7 +11,7 @@ let ORIGINALS;
 function saveGlobals() {
   ORIGINALS = {
     http: _.pick(http, 'request'),
-    https: _.pick(https, 'request')
+    https: _.pick(https, 'request'),
   };
 }
 
@@ -48,7 +48,7 @@ function attachLoggersToRequest(protocol, options, callback) {
 
   let logInfo = {
     request: {},
-    response: {}
+    response: {},
   };
 
   // Extract request logging details
@@ -122,7 +122,7 @@ function attachLoggersToRequest(protocol, options, callback) {
 GlobalLog.prototype.initialize = function(options) {
   options = options || {};
   _.defaults(options, {
-    maxBodyLength: 1024 * 1000 * 3
+    maxBodyLength: 1024 * 1000 * 3,
   });
   globalLogSingleton.maxBodyLength = options.maxBodyLength;
 
